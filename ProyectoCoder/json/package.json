@@ -1,0 +1,28 @@
+{
+  "name": "q",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-css": "node-sass --include-path scss scss/estilos.scss css/estilos.css",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "node-sass": "^4.14.1",
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "rfs": "^9.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucassmatias/ProyectoCoder.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lucassmatias/ProyectoCoder/issues"
+  },
+  "homepage": "https://github.com/lucassmatias/ProyectoCoder#readme",
+  "description": ""
+}

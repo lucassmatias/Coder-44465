@@ -1,0 +1,16 @@
+header{
+	background-color: black;
+}
+
+@import  "node_modules/rfs/scss";
+
+.header__nav{
+	@include font-size ( 0.8rem );
+	margin-top: 1vh;
+}
+
+@media(min-width: 1000px){
+	.header__nav{
+		font-size: 1.1rem;
+	}
+}
