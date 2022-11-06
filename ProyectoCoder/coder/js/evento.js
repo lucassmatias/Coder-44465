@@ -1,4 +1,4 @@
-//#region Clases 
+//#region CLASES
 class Producto{
     constructor(nombre, precio) {
         this.nombre = nombre;
@@ -21,7 +21,7 @@ function calcularPrecio(lista){
     return valor = lista.reduce((valor, item) => valor + item.precio, 0);
 }
 //#endregion
-//#region Eventos
+//#region Evento CARRITO
 //DOM
 const Carrito = [];
 let eCarrito = document.getElementById("carrito");
@@ -32,7 +32,7 @@ let eLista = document.getElementById("listCarrito");
 let eCuadro = document.getElementById("CuadroCarrito");
 let visible = false;
 let eTotal = document.getElementById("listCarritoTotal");
-//Eventos
+//Eventos TOASTIFY AL AGREGAR UN PRODUCTO AL CARRITO
 eBoton1.addEventListener("click", () => {
     carrito.src = "/imagenes/index/cart-plus-fill.svg";
     Carrito.push(new Producto("Alloy Elite 2", 15000));
@@ -46,6 +46,7 @@ eBoton1.addEventListener("click", () => {
         }).showToast();
     RefrescarCarrito();
 })
+//Eventos TOASTIFY AL AGREGAR UN PRODUCTO AL CARRITO
 eBoton2.addEventListener("click", () => {
     carrito.src = "/imagenes/index/cart-plus-fill.svg";
     Carrito.push(new Producto("Alloy Origins", 18500));
@@ -59,6 +60,7 @@ eBoton2.addEventListener("click", () => {
         }).showToast();
     RefrescarCarrito();
 })
+//Eventos TOASTIFY AL AGREGAR UN PRODUCTO AL CARRITO
 eBoton3.addEventListener("click", () => {
     carrito.src = "/imagenes/index/cart-plus-fill.svg";
     Carrito.push(new Producto("Alloy FPS RGB", 21000));
@@ -75,6 +77,7 @@ eBoton3.addEventListener("click", () => {
 eCarrito.addEventListener("click", () => {
     RefrescarCarrito();
 })
+//función para actualizar el carrito y hacerlo visible/invisible
 function RefrescarCarrito(){
     if(Carrito.length === 0){}
     else{
@@ -102,7 +105,8 @@ function RefrescarCarrito(){
     }     
 }
 //#endregion
-//#region Evento + JSON
+//#region Evento LOGIN + JSON + PROMISE + ASINCRÓNICO
+//CONSEGUIR LISTA DE USUARIO
 let lista = JSON.parse(localStorage.getItem("array"));
 const listaUsuario = [];
 if(lista != null){
@@ -110,6 +114,24 @@ if(lista != null){
         listaUsuario[i] = lista[i];
     }
 }
+//PROMESA PARA MOSTRAR, SI LOS USUARIOS EXISTEN, LA LISTA Y SINO DICE QUE LA LISTA ESTÁ VACÍA
+let boolLista = lista === null ? false : true;
+let MostrarDatos = () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            boolLista ? resolve(lista) : reject("La lista está vacía");
+        }, 2000)
+    })
+}
+MostrarDatos()
+.then(response => {
+    console.log(response);
+})
+.catch(error => {
+    console.log(error);
+})
+
+//DOM
 let divCarro = document.getElementById("divCarrito");
 let eUsuario = document.getElementById("usuario");
 let eAceptar = document.getElementById("botonAceptar");
@@ -120,6 +142,7 @@ let inputPW = document.getElementById("inputPW");
 let formulario = document.getElementById("formularioCarrito");
 let mensaje = document.getElementById("mensajeEvento");
 let visible1 = false;
+//EVENTO PARA MOSTRAR LA SECCION DE LOGIN
 eUsuario.addEventListener("click", () =>{
     if(visible1 == false){
         globalDesc.className = "globalDescNoVisible";
@@ -131,6 +154,7 @@ eUsuario.addEventListener("click", () =>{
         visible1 = false;
     }
 })
+//EVENTO INGRESAR DEL LOGIN
 formulario.addEventListener("submit", (e) =>{
     e.preventDefault();
     let inputs = e.target.children;
@@ -141,12 +165,14 @@ formulario.addEventListener("submit", (e) =>{
     let existe = (aux != undefined) ? true : false;
     mensaje.innerHTML = existe ? (aux.contraseña === inputs[3].value ? `Bienvenido ${inputs[1].value}`: `Contraseña incorrecta`) : `Usuario no encontrado`;
 }) 
+//EVENTO GUARDAR USUARIO
 eGuardar.addEventListener("click", () => {
     let nombre = inputNombre.value;
     let pw = inputPW.value;
     listaUsuario.push(new Usuario(nombre, pw));
     localStorage.setItem("array",JSON.stringify(listaUsuario));
 })
+//EVENTO LIMPIAR TODOS LOS USUARIOS DE LA LISTA
 eBorrar.addEventListener("click", () => {
     localStorage.clear();
     listaUsuario.forEach(item => {
@@ -155,11 +181,13 @@ eBorrar.addEventListener("click", () => {
 })
 
 //#endregion
-//#region Fetch
+//#region Fetch LISTA DE TODOS LOS PRODUCTOS
+//DOM
 let globalDesc = document.getElementById("globalDesc")
 let botonLista = document.getElementById("botonLista");
 let cuadroDesc = document.getElementById("cuadroDesc");
 let boolDescVisible = false;
+//EVENTO CARGAR LA LISTA CON FETCH Y HACERLO VISIBLE/INVISIBLE
 botonLista.addEventListener('click', () =>{
     divCarro.className = "divCarritoNoVisible"
     globalDesc.className = "globalDesc"
@@ -183,4 +211,17 @@ botonLista.addEventListener('click', () =>{
         boolDescVisible = false;
     }
 })
+//#endregion
+//#region Intervalo TOASTIFY CADA 20S
+setInterval(Intervalo, 20000);
+function Intervalo(){
+    Toastify({
+        text: "Aprovecha los nuevos descuentos de verano!",     
+        duration: 6000,
+        style: {
+            background: "linear-gradient(to right, #FF5353, #FF1919)",
+          },  
+        className: "toastify"
+    }).showToast();
+}
 //#endregion
